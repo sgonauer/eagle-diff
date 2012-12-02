@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 import os, sys
 import Image
 import ImageTk
@@ -6,11 +6,13 @@ import ImageChops
 import Tkinter
 import subprocess
 
-eagle_path = "C:/Program Files (x86)/EAGLE-6.1.0/bin/eagle.exe"
 
-cmd = eagle_path + " -C \"export image b1.png 400;quit\" " + sys.argv[1]
+eagle_path = "/opt/eagle-6.3.0/bin/eagle"
+
+
+cmd = [eagle_path,"-C", "export image b1.png 400;quit", sys.argv[1]]
 subprocess.call(cmd)
-cmd = eagle_path + " -C \"export image b2.png 400;quit\" " + sys.argv[2]
+cmd = [eagle_path,"-C", "export image b2.png 400;quit", sys.argv[2]]
 subprocess.call(cmd)
 
 root = Tkinter.Tk()
@@ -45,4 +47,6 @@ label_overlay.place(x=im_size,y=int(im_size/ratio),width=im_size,height=int(im_s
 
 root.title("Image diff")
 root.mainloop()
-os.system('del b1.png b2.png')
+#os.system('rm b1.png b2.png')
+os.remove('b1.png')
+os.remove('b2.png')
